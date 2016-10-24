@@ -4,7 +4,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-import sun.misc.Contended;
 
 /**
  * Created by buri on 2016. 10. 24..
@@ -12,7 +11,7 @@ import sun.misc.Contended;
 @Controller
 public class ViewController {
 
-    @RequestMapping(value = "/main",method = RequestMethod.GET)
+    @RequestMapping(value = "/",method = RequestMethod.GET)
     public ModelAndView goMain() {
 
         //TODO DB에 저장된 정보를 장소 정보를 가져온다
