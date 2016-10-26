@@ -8,8 +8,8 @@ public class Utils {
 	private static final String ENCODING = "UTF-8";
 	private static final String DEFAULT_PAGE_NO = "1";
 	private static final String DEFAULT_SEARCH_ROWS = "999";
-	private static final String BASE_URL = "";
-	private static final String SERVICE_KEY = "";
+	private static final String BASE_URL = "http://openapi.molit.go.kr:8081/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcAptTrade";
+	private static final String SERVICE_KEY = "XF0MC%2FMkWMXddjmJWE5lxOjAXXAgwJf9vAtm88lMjnjKtgEyJyKYMDxtitkAtwAtcuAht9iVLxeVORL%2FAqTYuw%3D%3D";
 
 	public static String buildUrl( String dealMonth, String placeCode ){
 

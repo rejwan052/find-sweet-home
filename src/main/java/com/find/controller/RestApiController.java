@@ -8,18 +8,19 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.find.mapper.PlaceDao;
 import com.find.util.Utils;
 import com.find.vo.Place;
 import com.find.xml.Response;
@@ -32,6 +33,9 @@ import lombok.extern.java.Log;
 @RestController
 @Log
 public class RestApiController {
+
+	@Autowired
+	PlaceDao placeDao;
 
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
 	public List<Response.Item> select( @RequestParam String dealMonth, @RequestParam String placeCode ){
@@ -99,6 +103,6 @@ public class RestApiController {
 	@RequestMapping(name = "/places", method = RequestMethod.GET)
 	public List<Place> getPlaces(){
 		// TODO DB에 저장된 정보를 장소 정보를 가져온다
-		return new ArrayList<Place>();
+		return placeDao.getPlaces();
 	}
 }
