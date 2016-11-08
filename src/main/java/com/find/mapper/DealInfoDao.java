@@ -2,6 +2,7 @@ package com.find.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -46,7 +47,9 @@ public interface DealInfoDao {
 			+		"(#{item.id}, #{item.money}, #{item.year}, #{item.month}, #{item.day}, #{item.apartment}, #{item.spaceSize}, "
 			+ 		" #{item.place}, #{item.placeNum}, #{item.placeCode}, now()) "
 			+	"</foreach>"
-			+ "ON DUPLICATE KEY UPDATE money=values(money), year=values(year), month=values(month), day=values(day), space_size=values(space_size), create_date_time=values(create_date_time)"
 			+ "</script>")
 	void insertResponseItems( List<Response.Item> items );
+	
+	@Delete("DELETE from deal_info")
+	void removeDealInfo();
 }

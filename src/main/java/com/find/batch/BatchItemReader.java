@@ -7,6 +7,7 @@ import org.springframework.batch.item.NonTransientResourceException;
 import org.springframework.batch.item.ParseException;
 import org.springframework.batch.item.UnexpectedInputException;
 
+import com.find.Constants;
 import com.find.util.APIUtils;
 import com.find.xml.Response;
 
@@ -31,22 +32,12 @@ public class BatchItemReader implements ItemReader<List<Response.Item>> {
 
 		for (Response.Item item : response.getBody().getItems()) {
 			log.info(item.toString());
-			item.setId(getUniqueId());
+			item.setId(Constants.getUniqueId());
 		}
 
 		log.info("response items size : " + response.getBody().getItems().size());
 
 		return response.getBody().getItems();
-	}
-
-	private String getUniqueId(){
-		try {
-			Thread.sleep(100);
-		}
-		catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		return String.valueOf(System.currentTimeMillis());
 	}
 
 }

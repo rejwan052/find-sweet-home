@@ -5,6 +5,7 @@ import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
@@ -12,15 +13,76 @@ import javax.xml.bind.Unmarshaller;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.find.mapper.DealInfoDao;
 import com.find.util.APIUtils;
+import com.find.vo.Place;
 import com.find.xml.Response;
 
+import lombok.extern.java.Log;
+
+@Log
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class HomeApplicationTests {
+
+	@Autowired
+	DealInfoDao dealDao;
+
+	@Test
+	public void testSelectPlaceInfo() throws Exception{
+		List<Place> places = dealDao.getPlaces();
+
+		for (Place place : places) {
+			log.info(place.getCode());
+		}
+
+	}
+
+	@Test
+	public void testBuildUrl() throws Exception{
+		List<Place> places = dealDao.getPlaces();
+
+		for (Place place : places) {
+
+			String url = APIUtils.buildUrl("201601", place.getCode());
+			log.info("Request Url : " + url);
+		}
+
+	}
+
+	@Ignore
+	@Test
+	public void insertApiData() throws Exception{
+
+		//dealDao.removeDealInfo();
+
+		List<Place> places = dealDao.getPlaces();
+
+		for (Place place : places) {
+
+			String url = APIUtils.buildUrl("201610", place.getCode());
+
+			String result = APIUtils.getQueryResult(url);
+			Response response = APIUtils.xmlToResponse(result);
+			List<Response.Item> items = response.getBody().getItems();
+
+			for (Response.Item item : items) {
+				if( item.getPlaceNum() == null ) {
+					log.info(item.toString());
+				}
+				item.setId(Constants.getUniqueId());
+			}
+
+			if( items != null && !items.isEmpty() ) {
+				dealDao.insertResponseItems(items);
+			}
+		}
+
+	}
 
 	@Ignore
 	@Test
@@ -54,17 +116,6 @@ public class HomeApplicationTests {
 		System.out.println(sb.toString());
 		Response response = (Response) jaxbUnmarshaller.unmarshal(new StringReader(sb.toString()));
 
-		/*
-		 * System.out.println(response.getBody().getNumOfRows()); System.out.println(response.getBody().getPageNo());
-		 * System.out.println(response.getBody().getTotalCount());
-		 */
-
-		// for(int i = 0 ; i < response.getBody().getItems().size(); i++){
-		// System.out.println(response.getBody().getItems().get(i).getApartment());
-		// System.out.println(response.getBody().getItems().get(i).getPlace());
-		// System.out.println(response.getBody().getItems().get(i).getMoney());
-		// System.out.println(response.getBody().getItems().get(i).getPlaceCode());
-		// }
 	}
 
 }

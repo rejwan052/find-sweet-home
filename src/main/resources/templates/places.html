@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
 <head>
-<title>home</title>
+<title>place</title>
 
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet"
@@ -23,8 +23,30 @@
 
 </head>
 <body>
-	<nav th:replace="fragments/navbar">Navbar</nav>
 	<div class="container">
+		<h2>도시코드</h2>
+
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th style="width: 150px;">지역번호</th>
+					<th style="width: 200px;">지역</th>
+					<th>도시명</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="place : ${placeList.pageList}">
+					<td th:text="${place.code}"></td>
+					<td th:text="${place.province}"></td>
+					<td th:text="${place.city}"></td>
+				</tr>
+			</tbody>
+		</table>
+
+		<div th:if="${totalItems > 5}" class="row">
+			<div th:replace="fragments/pagination :: [id='paginator']"
+				th:remove="tag">Pagination Control</div>
+		</div>
 	</div>
 
 

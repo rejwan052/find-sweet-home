@@ -20,7 +20,7 @@ import lombok.extern.java.Log;
  */
 @RestController
 @Log
-public class RestApiController {
+public class HomeApiController {
 
 	@Autowired
 	DealInfoDao placeDao;
