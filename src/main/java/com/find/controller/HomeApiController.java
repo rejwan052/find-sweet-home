@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.find.mapper.DealInfoDao;
 import com.find.util.APIUtils;
-import com.find.vo.Place;
+import com.find.vo.Deal;
 import com.find.xml.Response;
 
 import lombok.extern.java.Log;
@@ -39,9 +39,9 @@ public class HomeApiController {
 		return response.getBody().getItems();
 	}
 
-	@RequestMapping(name = "/places", method = RequestMethod.GET)
-	public List<Place> getPlaces(){
+	@RequestMapping(name = "/deals", method = RequestMethod.GET)
+	public List<Deal> getDealInfo(){
 		// TODO DB에 저장된 정보를 장소 정보를 가져온다
-		return placeDao.getPlaces();
+		return placeDao.getDealInfo();
 	}
 }

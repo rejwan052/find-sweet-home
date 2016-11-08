@@ -9,11 +9,10 @@ import org.springframework.web.servlet.ModelAndView;
  * Created by buri on 2016. 10. 24..
  */
 @Controller
-public class HomeViewController {
+public class DefaultController {
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView goMain(){
-		// TODO DB에 저장된 정보를 장소 정보를 가져온다
-		return new ModelAndView("layout");
+		return new ModelAndView("home");
 	}
 }
